@@ -1,1 +1,17 @@
- 
+body {
+    background-image: url("../cell10x10.gif");
+    background-repeat: repeat;
+    height: 1070px;
+    left: 140px;
+    width: 800px;
+}
+
+div {
+    background-color: #ffffff;
+    height: 1070px;
+    left: 152px;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    width: 800px;
+}
