@@ -35,5 +35,5 @@ class OwnerDataTest(TestCase):
         saved_data = Owner.objects.all()
         self.assertEqual(saved_data.count(), 1)
 
-        self.assertEqual(saved_data.name, 'Sergiy')
-        self.assertEqual(saved_data.last_name, 'Savarin')
+        self.assertEqual(saved_data[0].name, 'Sergiy')
+        self.assertEqual(saved_data[0].last_name, 'Savarin')
