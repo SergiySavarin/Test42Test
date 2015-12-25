@@ -5,9 +5,9 @@ from django.template.loader import render_to_string
 
 from views import contact
 
+
 class HomePageTest(TestCase):
     """Test contact home page."""
-    
     def test_root_url_resolves_to_home_page_view(self):
         """Test root url and home page url."""
         found = resolve('/')
