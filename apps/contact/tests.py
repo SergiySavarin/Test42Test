@@ -37,3 +37,20 @@ class OwnerDataTest(TestCase):
 
         self.assertEqual(saved_data[0].name, 'Sergiy')
         self.assertEqual(saved_data[0].last_name, 'Savarin')
+
+
+class OwnerDataView(TestCase):
+    """Test owner data view."""
+    def test_storing_owner_data_to_html_page(self):
+        """Test storing owner data to html."""
+        owner = Owner()
+
+        owner.name = 'Sergiy'
+        owner.last_name = 'Savarin'
+        owner.save()
+
+        request = HttpRequest()
+        response = contact(request)
+
+        self.assertContains(response, 'Sergiy')
+        self.assertContains(response, 'Savarin')
