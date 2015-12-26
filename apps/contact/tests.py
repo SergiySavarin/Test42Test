@@ -28,14 +28,14 @@ class OwnerDataTest(TestCase):
         """Test saving and retriving owner data."""
         owner = Owner()
 
-        owner.name = 'Sergiy'
+        owner.first_name = 'Sergiy'
         owner.last_name = 'Savarin'
         owner.save()
 
         saved_data = Owner.objects.all()
         self.assertEqual(saved_data.count(), 1)
 
-        self.assertEqual(saved_data[0].name, 'Sergiy')
+        self.assertEqual(saved_data[0].first_name, 'Sergiy')
         self.assertEqual(saved_data[0].last_name, 'Savarin')
 
 
@@ -45,7 +45,7 @@ class OwnerDataView(TestCase):
         """Test storing owner data to html."""
         owner = Owner()
 
-        owner.name = 'Sergiy'
+        owner.first_name = 'Sergiy'
         owner.last_name = 'Savarin'
         owner.save()
 
