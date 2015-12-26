@@ -1,5 +1,6 @@
 from django.core.urlresolvers import resolve
 from django.http import HttpRequest
+from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.test import TestCase
 
@@ -16,8 +17,9 @@ class HomePageTest(TestCase):
 
     def test_home_page_returns_correct_html(self):
         """Test site and contact.html content."""
+        owner = Owner()
         request = HttpRequest()
-        response = contact(request)
+        response = render(request, 'contact.html', {'owner': owner})
         expected_html = render_to_string('contact.html')
         self.assertEqual(response.content.decode(), expected_html)
 
