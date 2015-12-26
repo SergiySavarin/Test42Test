@@ -24,6 +24,14 @@ class HomePageTest(TestCase):
         self.assertEqual(response.content.decode(), expected_html)
 
 
+class AdminPageTest(TestCase):
+    """Test admin page."""
+    def test_root_url_resolves_to_home_page_view(self):
+        """Test admin page url."""
+        response = self.client.get('/admin/')
+        self.assertContains(response, 'Django site admin')
+
+
 class OwnerDataTest(TestCase):
     """Test owner contact model."""
     def test_saving_and_retriving_owner_data(self):
