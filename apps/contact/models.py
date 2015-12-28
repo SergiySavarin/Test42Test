@@ -15,3 +15,4 @@ class Owner(models.Model):
     other = models.TextField(blank=True)
     # Owner biography
     bio = models.TextField(blank=True)
+    # status = models.CharField(max_length=256, blank=True)

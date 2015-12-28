@@ -8,24 +8,15 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'Owner'
-        db.create_table(u'contact_owner', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('first_name', self.gf('django.db.models.fields.CharField')(max_length=256)),
-            ('last_name', self.gf('django.db.models.fields.CharField')(max_length=256)),
-            ('birthday', self.gf('django.db.models.fields.CharField')(max_length=256)),
-            ('email', self.gf('django.db.models.fields.CharField')(max_length=256)),
-            ('skype', self.gf('django.db.models.fields.CharField')(max_length=256)),
-            ('jabber', self.gf('django.db.models.fields.CharField')(max_length=256)),
-            ('other', self.gf('django.db.models.fields.TextField')(blank=True)),
-            ('bio', self.gf('django.db.models.fields.TextField')(blank=True)),
-        ))
-        db.send_create_signal(u'contact', ['Owner'])
+        # Adding field 'Owner.status'
+        db.add_column(u'contact_owner', 'status',
+                      self.gf('django.db.models.fields.CharField')(default='', max_length=256, blank=True),
+                      keep_default=False)
 
 
     def backwards(self, orm):
-        # Deleting model 'Owner'
-        db.delete_table(u'contact_owner')
+        # Deleting field 'Owner.status'
+        db.delete_column(u'contact_owner', 'status')
 
 
     models = {
@@ -39,7 +30,8 @@ class Migration(SchemaMigration):
             'jabber': ('django.db.models.fields.CharField', [], {'max_length': '256'}),
             'last_name': ('django.db.models.fields.CharField', [], {'max_length': '256'}),
             'other': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            'skype': ('django.db.models.fields.CharField', [], {'max_length': '256'})
+            'skype': ('django.db.models.fields.CharField', [], {'max_length': '256'}),
+            'status': ('django.db.models.fields.CharField', [], {'max_length': '256', 'blank': 'True'})
         }
     }
 
