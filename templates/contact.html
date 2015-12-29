@@ -5,18 +5,28 @@
 {% block title %}Contact Info{% endblock title %}
 
 {% block content %}
-<div style="width: 800px; height: 1070px; left: 18%; background-repeat: repeat;">
-    <h3 style="font-size: 22px; margin-left: 25px; font-family: Georgia,serif; line-height: 26px; font-weight: normal;">Contact Information</h3>
-    <div style="top: 65px; left: 25px; width: 313px; height: 18px; border: medium none; position: absolute; overflow: hidden; cursor: auto; margin-top: 1px; margin-left: 1px; z-index: 1000;">Name: {{ owner.first_name }}</div>
-    <div style="top: 55px; left: 380px; width: 308px; height: 18px; border: medium none; position: absolute; overflow: hidden; cursor: auto; margin-top: 1px; margin-left: 1px; z-index: 1000;">Contacts</div>
-    <div style="top: 90px; left: 25px; width: 313px; height: 18px; border: medium none; position: absolute; overflow: hidden; cursor: auto; margin-top: 1px; margin-left: 1px; z-index: 1000;">Last name: {{ owner.last_name }}</div>
-    <div style="top: 80px; left: 380px; width: 308px; height: 18px; border: medium none; position: absolute; overflow: hidden; cursor: auto; margin-top: 1px; margin-left: 1px; z-index: 1000;">Email: {{ owner.email }}</div>
-    <div style="top: 120px; left: 25px; width: 313px; height: 18px; border: medium none; position: absolute; overflow: hidden; cursor: auto; margin-top: 1px; margin-left: 1px; z-index: 1000;">Date of birth: {{ owner.birthday }}</div>
-    <div style="top: 105px; left: 380px; width: 308px; height: 18px; border: medium none; position: absolute; overflow: hidden; cursor: auto; margin-top: 1px; margin-left: 1px; z-index: 1000;">Jabber: {{ owner.jabber }}</div>
-    <div style="top: 165px; left: 30px; width: 313px; height: 153px; border: medium none; position: absolute; overflow: hidden; cursor: auto; margin-top: 1px; margin-left: 1px; z-index: 1000;">Bio: 
-        <p>{{ owner.bio }}</p>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4"></div> 
+        <div class="col-md-4">Contacts</div>
     </div>
-    <div style="top: 130px; left: 380px; width: 308px; height: 18px; border: medium none; position: absolute; overflow: hidden; cursor: auto; margin-top: 1px; margin-left: 1px; z-index: 1000;">Skype: {{ owner.skype }}</div>
-    <div style="top: 160px; left: 380px; width: 308px; height: 163px; border: medium none; position: absolute; overflow: hidden; cursor: auto; margin-top: 1px; margin-left: 1px; z-index: 1000;">Other contacts: <a href="{{ owner.other }}">{{ owner.other }}</a></div>
+    <div class="row">
+        <div class="col-md-4">Name: {{ owner.first_name }}</div>
+        <div class="col-md-4">Email: {{ owner.email }}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">Last name: {{ owner.last_name }}</div>
+        <div class="col-md-4">Jabber: {{ owner.jabber }}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">Date of birth: {{ owner.birthday }}</div>
+        <div class="col-md-4">Skype: {{ owner.skype }}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-4"><h5>Bio: </h5>
+            <p>{{ owner.bio }}</p>
+        </div>
+        <div class="col-md-4">Other contacts: <a href="{{ owner.other }}">{{ owner.other }}</a></div>
+    </div>
 </div>
 {% endblock content %}
