@@ -1,7 +1,3 @@
-import json
-
-from datetime import datetime
-from django.http import HttpResponse
 from django.shortcuts import render
 from .models import Owner, UsersRequest
 
@@ -13,4 +9,5 @@ def contact(request):
     if request.is_ajax():
         return render(request, 'requests.html', {'requests': requests})
     else:
-        return render(request, 'contact.html', {'owner': owner, 'requests': requests})
+        return render(request, 'contact.html', {'owner': owner,
+                                                'requests': requests})

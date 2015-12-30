@@ -1,7 +1,6 @@
-from django.http import HttpResponse
 from datetime import datetime
-
 from .models import UsersRequest
+
 
 class UserRequestMiddleware(object):
     """Save all http requests to database."""
