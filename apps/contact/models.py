@@ -15,3 +15,7 @@ class Owner(models.Model):
     other = models.TextField(blank=True)
     # Owner biography
     bio = models.TextField(blank=True)
+
+class UsersRequest(models.Model):
+    """Model for storing requests."""
+    request_str = models.CharField(max_length=256, blank=False)

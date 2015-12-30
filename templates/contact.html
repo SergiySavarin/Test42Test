@@ -28,5 +28,24 @@
         </div>
         <div class="col-md-4">Other contacts: <a href="{{ owner.other }}">{{ owner.other }}</a></div>
     </div>
+    <hr>
+    <footer id="foot">
+        <H5><a id="rqst" href="">requests</a></H5>
+        {% for request in requests %}
+            <p>{{ request.request_str }}</p>
+        {% endfor %}
+    </footer>
+    <script>
+        $(document).ready(function() {    
+            $('#rqst').click(function() {
+                    $.ajax({
+                        url: '{% url "contact" %}',
+                        success: function(data) {
+                            $('#foot').html(data);
+                    }
+                });
+            });
+        });
+    </script>
 </div>
 {% endblock content %}

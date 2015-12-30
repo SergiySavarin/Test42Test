@@ -44,10 +44,11 @@ INSTALLED_APPS = (
 
     'apps.hello',
     'apps.contact',
-    # 'south'
+    'south',
 )
 
 MIDDLEWARE_CLASSES = (
+    'apps.contact.middleware.UserRequestMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
