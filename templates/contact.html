@@ -6,21 +6,19 @@
 
 {% block content %}
 <script type='text/javascript' src='http://code.jquery.com/jquery-1.8.2.js'></script>
-<script type="text/javascript">
-    var url_ = '/requests';
-</script>
 <script type='text/javascript'>
-    $(document).ready(function() {    
-        $('#rqst').click(function() {
-                $().ajax({
-                    url: url_,
-                    type: 'GET',
-                    success: function(data) {
-                        $('#resutl').html(data);
-                    }
-                });
-        });
+$(document).ready(function() {
+    $('#rqst').click(function() {
+            $.ajax({
+                url: '/',
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    $('#resutl').html(data.request);
+                }
+            });
     });
+});
 </script>
 <div class="container">
     <div class="row">
@@ -46,14 +44,9 @@
         <div class="col-md-4">Other contacts: <a href="{{ owner.other }}">{{ owner.other }}</a></div>
     </div>
     <hr>
-    <footer id="foot">
+    <footer>
         <H5><a id="rqst">requests</a></H5>
-        <div id="resutl">
-            {% include "requests.html" %}
-        </div>
-        <!-- {% for request in requests %} -->
-            <!-- <p>{{ request.request_str }}</p> -->
-        <!-- {% endfor %} -->
+        <div id="resutl"></div>
     </footer>
 </div>
 {% endblock content %}
