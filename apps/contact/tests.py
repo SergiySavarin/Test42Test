@@ -5,7 +5,7 @@ from django.template.loader import render_to_string
 from django.test import TestCase
 
 from models import Owner, UsersRequest
-from views import contact
+from views import contact, requests
 
 
 class HomePageTest(TestCase):
@@ -26,7 +26,7 @@ class HomePageTest(TestCase):
 
 class AdminPageTest(TestCase):
     """Test admin page."""
-    def test_root_url_resolves_to_home_page_view(self):
+    def test_admin_page_availiability(self):
         """Test admin page url."""
         response = self.client.get('/admin/')
         self.assertContains(response, 'Django site admin')
@@ -86,6 +86,9 @@ class UserRequestsData(TestCase):
         request = HttpRequest()
         # Add to request META key which make is_ajax() method true
         request.META['HTTP_X_REQUESTED_WITH'] = 'XMLHttpRequest'
-        response = contact(request)
+        response1 = requests(request)
 
-        self.assertContains(response, 'GET / HTTP/1.1')
+        response2 = self.client.get('/')
+        self.assertContains(response2, 'requests')
+
+        self.assertContains(response1, 'GET / HTTP/1.1')
