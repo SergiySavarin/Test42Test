@@ -2,24 +2,9 @@
 
 {% load staticfiles %}
 
-{% block title %}Contact Info{% endblock title %}
+{% block title %}Contact Information{% endblock title %}
 
 {% block content %}
-<script type='text/javascript' src='http://code.jquery.com/jquery-1.8.2.js'></script>
-<script type='text/javascript'>
-$(document).ready(function() {
-    $('#rqst').click(function() {
-            $.ajax({
-                url: '/',
-                type: 'GET',
-                dataType: 'json',
-                success: function(data) {
-                    $('#resutl').html(data.request);
-                }
-            });
-    });
-});
-</script>
 <div class="container">
     <div class="row">
         <div class="col-md-4"></div> 
@@ -45,7 +30,7 @@ $(document).ready(function() {
     </div>
     <hr>
     <footer>
-        <H5><a id="rqst">requests</a></H5>
+        <H5><a href="{% url "requests" %}">requests</a></H5>
         <div id="resutl"></div>
     </footer>
 </div>
