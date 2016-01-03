@@ -10,7 +10,7 @@ class UserRequestMiddleware(object):
                 Date       Time     Remote IP  Method Path Protocol
             [01/Jan/2016 13:01:27] [127.0.0.1]  "GET   /   HTTP/1.1"
         """
-        if not request.is_ajax():    
+        if not request.is_ajax():
             request_str = '[%s] [%s] "%s %s %s"' % (
                 datetime.now().strftime('%d/%b/%Y %H:%M:%S'),
                 request.META['REMOTE_ADDR'],
