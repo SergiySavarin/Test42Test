@@ -8,8 +8,10 @@ from .models import Owner, UsersRequest
 def contact(request):
     """View for contact.html root page."""
     # Take owner data from the database
-    owner = Owner.objects.all()[0]
-    return render(request, 'contact.html', {'owner': owner})
+    owner = Owner.objects.all().first()
+    if owner is not None:
+        return render(request, 'contact.html', {'owner': owner})
+    return render(request, 'contact.html')
 
 
 def requests(request):
@@ -28,3 +30,7 @@ def requests(request):
         return HttpResponse(json.dumps(request_data))
     else:
         return render(request, 'requests.html')
+
+
+def edit_contact(request):
+    return render(request, 'edit_contact.html')
