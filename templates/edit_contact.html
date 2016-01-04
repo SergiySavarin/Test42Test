@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}Edit Contact Information{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <form action="{% url "edit_contact" %}" method="post" enctype="multipart/form-data" name="myform" class="form-horizontal">
+        {% csrf_token %}
+        <div class="col-sm-8">
+            <div class="form-group">
+                <label for="first_name" class="col-sm-2 control-label">First Name: </label>
+                <div class="col-sm-4">
+                    <input type="text" value="{{ owner.first_name }}" name="first_name" id="first_name" class="form-control"/>
+                </div>
+                <label for="email" class="col-sm-2 control-label">Email: </label>
+                <div class="col-sm-4">
+                    <input type="text" value="" name="email" id="email"  class="form-control"/>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="form-group">
+                <label for="last_name" class="col-sm-2 control-label">Last Name: </label>
+                <div class="col-sm-4">
+                    <input type="text" value="" name="last_name" id="last_name" placeholder="Enter your last name"  class="form-control"/>
+                </div>
+                <label for="jaber" class="col-sm-2 control-label">Jabber: </label>
+                <div class="col-sm-4">
+                    <input type="text" value="" name="jabber" id="jabber"  class="form-control"/>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="form-group">
+                <label for="birthday" class="col-sm-2 control-label">Date of birth: </label>
+                <div class="col-sm-4">
+                    <input type="text" value="" name="birthday" id="birthday" placeholder="e.g. 1986-11-30"  class="form-control"/>
+                </div>
+                <label for="skype" class="col-sm-2 control-label">Skype: </label>
+                <div class="col-sm-4">
+                    <input type="text" value="" name="skype" class="form-control"/>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="form-group">
+                <label for="photo" class="col-sm-2 control-label">Photo: </label>
+                <div class="col-sm-4">
+                    <input type="file" value="" name="photo" id="photo" />
+                </div>
+                <div class="col-sm-6">
+                    <div>
+                        <label for="other_info">Other Infornation: </label>
+                        <textarea name="other_info" id="other_info" class="form-control"></textarea>
+                    </div>
+                    <div>
+                        <label for="bio">Biography: </label>
+                        <textarea name="bio" id="bio" class="form-control"></textarea>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="container">
+                <input type="submit" name="save_button" value="Save"/>
+                <button type="submit" name="cancel_button">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock content %}
