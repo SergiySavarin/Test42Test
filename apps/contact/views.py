@@ -1,6 +1,7 @@
 import json
 
-from django.http import HttpResponse
+from django.core.urlresolvers import reverse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from .models import Owner, UsersRequest
 
@@ -33,4 +34,12 @@ def requests(request):
 
 
 def edit_contact(request):
-    return render(request, 'edit_contact.html')
+    owner = Owner.objects.all().first()
+    if request.method == 'GET' and owner is not None:
+        return render(request, 'edit_contact.html', {'owner': owner})
+    elif request.method == 'POST':
+        if request.POST.get('save_button') is not None:
+            data = request.POST.get('first_name', '').strip()
+            return HttpResponseRedirect(reverse('edit_contact'))
+        elif request.POST.get('cancel_button') is not None:
+            return HttpResponseRedirect(reverse('contact'))
