@@ -39,7 +39,6 @@ def edit_contact(request):
         return render(request, 'edit_contact.html', {'owner': owner})
     elif request.method == 'POST':
         if request.POST.get('save_button') is not None:
-            data = request.POST.get('first_name', '').strip()
             return HttpResponseRedirect(reverse('edit_contact'))
         elif request.POST.get('cancel_button') is not None:
             return HttpResponseRedirect(reverse('contact'))
