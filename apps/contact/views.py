@@ -10,7 +10,10 @@ from .models import Owner, UsersRequest
 class EditContact(forms.Form):
     """Form for edit contact information page."""
     owner = Owner.objects.all().first()
-    first_name = forms.CharField(widget=forms.TextInput(attrs={'value': owner.first_name, 'name': 'first_name', 'id':'first_name', 'class': 'form-control'}))
+    first_name = forms.CharField(widget=forms.TextInput(attrs={
+        'value': owner.first_name, 'name': 'first_name',
+        'id': 'first_name', 'class': 'form-control'
+    }))
     last_name = forms.CharField(max_length=256)
     birthday = forms.DateField()
     email = forms.EmailField()
@@ -23,14 +26,13 @@ class EditContact(forms.Form):
     bio = forms.CharField(widget=forms.Textarea)
 
 
-
 def contact(request):
     """View for contact.html root page."""
     # Take owner data from the database
-    owner = Owner.objects.all().first()
-    if owner is not None:
-        return render(request, 'contact.html', {'owner': owner})
-    return render(request, 'contact.html')
+    owner = Owner.objects.all()
+    if not owner.first():
+        return render(request, 'contact.html')
+    return render(request, 'contact.html', {'owner': owner.first()})
 
 
 def requests(request):
@@ -55,12 +57,12 @@ def edit_contact(request):
     form = EditContact()
     owner = Owner.objects.all().first()
     if request.method == 'GET' and owner is not None:
-        return render(request, 'edit_contact.html', {'owner': owner, 'form': form})
+        return render(request, 'edit_contact.html', {'owner': owner,
+                                                     'form': form})
     elif request.method == 'POST':
         if request.is_ajax:
-            print request
-        # if request.POST.get('save_button') is not None:
-        #     # print request.POST.get('birthday')
-        #     return HttpResponseRedirect(reverse('edit_contact'))
-        # elif request.POST.get('cancel_button') is not None:
-        #     return HttpResponseRedirect(reverse('contact'))
+            return HttpResponseRedirect(reverse('edit_contact'))
+        if request.POST.get('save_button') is not None:
+            return HttpResponseRedirect(reverse('edit_contact'))
+        elif request.POST.get('cancel_button') is not None:
+            return HttpResponseRedirect(reverse('contact'))

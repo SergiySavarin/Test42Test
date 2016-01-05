@@ -11,10 +11,18 @@ $('#save').click(function () {
     $.ajax({
         url: '{% url "edit_contact" %}',
         type: 'POST',
-        dateType: 'json',
         data: {
             'jabber': $('#jabber').value,
             'test': 'qwerty'
+        },
+        success: function(status) {
+            if (status == 'success') {
+                $('#data_saved').show();
+                return false;
+            } else {
+                alert('Server Error');
+                return false;
+            }
         }
     });
 });
@@ -81,6 +89,7 @@ $('#save').click(function () {
         </div>
         <div class="col-sm-8">
             <div class="container">
+                <span id="data_saved">Data Saved Successfuly</span>
                 <input id="save" type="submit" name="save_button" value="Save"/>
                 <button type="submit" name="cancel_button">Cancel</button>
             </div>

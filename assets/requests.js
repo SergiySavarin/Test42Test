@@ -20,10 +20,7 @@ setInterval(function() {
             COUNT = END - START;
             $('title').text(COUNT);
             if (COUNT > 0) {
-                $('#resutl').html('');
-                for (var i = 0; i <= (COUNT - 1); i++) {
-                    $('#resutl').append(data.request[i]);
-                };    
+                $('#resutl').html(data.request);
             }
         }
     });
