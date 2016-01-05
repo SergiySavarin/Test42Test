@@ -44,7 +44,7 @@ INSTALLED_APPS = (
 
     'apps.hello',
     'apps.contact',
-    # 'south',
+    'south',
 )
 
 MIDDLEWARE_CLASSES = (
