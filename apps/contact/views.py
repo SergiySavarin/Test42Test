@@ -1,9 +1,27 @@
 import json
 
+from django import forms
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from .models import Owner, UsersRequest
+
+
+class EditContact(forms.Form):
+    """Form for edit contact information page."""
+    owner = Owner.objects.all().first()
+    first_name = forms.CharField(widget=forms.TextInput(attrs={'value': owner.first_name, 'name': 'first_name', 'id':'first_name', 'class': 'form-control'}))
+    last_name = forms.CharField(max_length=256)
+    birthday = forms.DateField()
+    email = forms.EmailField()
+    skype = forms.CharField(max_length=256)
+    jabber = forms.CharField(max_length=256)
+    photo = forms.ImageField()
+    # Other information about owner
+    other = forms.CharField(widget=forms.Textarea)
+    # Owner biography
+    bio = forms.CharField(widget=forms.Textarea)
+
 
 
 def contact(request):
@@ -34,11 +52,15 @@ def requests(request):
 
 
 def edit_contact(request):
+    form = EditContact()
     owner = Owner.objects.all().first()
     if request.method == 'GET' and owner is not None:
-        return render(request, 'edit_contact.html', {'owner': owner})
+        return render(request, 'edit_contact.html', {'owner': owner, 'form': form})
     elif request.method == 'POST':
-        if request.POST.get('save_button') is not None:
-            return HttpResponseRedirect(reverse('edit_contact'))
-        elif request.POST.get('cancel_button') is not None:
-            return HttpResponseRedirect(reverse('contact'))
+        if request.is_ajax:
+            print request
+        # if request.POST.get('save_button') is not None:
+        #     # print request.POST.get('birthday')
+        #     return HttpResponseRedirect(reverse('edit_contact'))
+        # elif request.POST.get('cancel_button') is not None:
+        #     return HttpResponseRedirect(reverse('contact'))
