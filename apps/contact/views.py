@@ -9,9 +9,9 @@ from .models import Owner, UsersRequest
 
 class EditContact(forms.Form):
     """Form for edit contact information page."""
-    owner = Owner.objects.all().first()
+    """owner = Owner.objects.all().first()"""
     first_name = forms.CharField(widget=forms.TextInput(attrs={
-        'value': owner.first_name, 'name': 'first_name',
+        'value': 'owner.first_name', 'name': 'first_name',
         'id': 'first_name', 'class': 'form-control'
     }))
     last_name = forms.CharField(max_length=256)

@@ -20,14 +20,14 @@ class HomePageTest(TestCase):
         owner = Owner()
         if not owner:
             owner = Owner.objects.create(
-                bio= 'hihihi', 
-                first_name= 'Sergiy', 
-                last_name= 'Savarin', 
-                other= 'www.facebook.com/sergiy.savarin', 
-                birthday= '30/11/1986', 
-                skype= 'sergiy_savarin', 
-                jabber= 'sergiysavarin@khavr.com', 
-                email= 'vir.host@gmail.com'
+                bio='hihihi',
+                first_name='Sergiy',
+                last_name='Savarin',
+                other='www.facebook.com/sergiy.savarin',
+                birthday='30/11/1986',
+                skype='sergiy_savarin',
+                jabber='sergiysavarin@khavr.com',
+                email='vir.host@gmail.com'
             )
         request = HttpRequest()
         response = render(request, 'contact.html', {'owner': owner})
