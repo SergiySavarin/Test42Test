@@ -84,11 +84,11 @@ class UserRequestsData(TestCase):
     def test_storing_requests_to_html_after_new_request(self):
         """ Test saving request data to database by middleware."""
         request = HttpRequest()
+        # Make request to home page
+        response1 = self.client.get('/')
+        self.assertContains(response1, 'requests')
         # Add to request META key which make is_ajax() method true
         request.META['HTTP_X_REQUESTED_WITH'] = 'XMLHttpRequest'
-        response1 = requests(request)
-        # Make request to home page
-        response2 = self.client.get('/')
-        self.assertContains(response2, 'requests')
+        response2 = requests(request)
         # Check request page with new request line
-        self.assertContains(response1, 'GET / HTTP/1.1')
+        self.assertContains(response2, 'GET / HTTP/1.1')
