@@ -54,7 +54,7 @@
                     {% if form.photo.value == '' %}
                         <img class="img-thumbnail" style="width: 200px; height: 200px; border: 1px solid black;" id="blah" src="{% static "default_user.png" %}" alt="your photo" />
                     {% else %}
-                        <img class="img-thumbnail" style="width: 200px; height: 200px; border: 1px solid black;" id="blah" src="#" alt="your photo" />
+                        <img class="img-thumbnail" style="max-height:200px; max-width:200px; border: 1px solid black;" id="blah" src="{{ MEDIA_URL }}{{ form.photo.value }}" alt="your photo" />
                     {% endif %}
                 </div>
                 <div class="col-sm-2"></div>
