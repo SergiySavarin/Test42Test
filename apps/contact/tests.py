@@ -18,6 +18,7 @@ class HomePageTest(TestCase):
         self.assertContains(response, 'Last name:')
         self.assertContains(response, 'Skype:')
         self.assertContains(response, 'Bio:')
+        self.assertContains(response, 'Photo:')
 
     def tets_home_page_show_alert_without_owner_data_and_default_image(self):
         """ Test that page show alert message when db is empty and
