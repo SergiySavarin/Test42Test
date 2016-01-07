@@ -11,8 +11,9 @@ class Owner(models.Model):
     email = models.CharField(max_length=256)
     skype = models.CharField(max_length=256)
     jabber = models.CharField(max_length=256)
+    photo = models.ImageField(upload_to='image', blank=True, null=True)
     # Other information about owner
-    other = models.TextField(blank=True)
+    other_info = models.TextField(blank=True)
     # Owner biography
     bio = models.TextField(blank=True)
 

@@ -1,5 +1,6 @@
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls import patterns, include, url
+from django.conf import settings
 
 from django.contrib import admin
 admin.autodiscover()
@@ -14,5 +15,7 @@ urlpatterns = patterns(
     url(r'^edit_contact/$', 'apps.contact.views.edit_contact',
         name='edit_contact'),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^uploads/(?P<path>.*)$', 'django.views.static.serve',
+        {'document_root': settings.MEDIA_ROOT}),
 )
 urlpatterns += staticfiles_urlpatterns()

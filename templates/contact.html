@@ -6,6 +6,9 @@
 
 {% block content %}
 <div class="container">
+    {% if not owner %}
+    <div class="alert alert-warning" role="alert" style="width: 180px;">Database is empty.</div>
+    {% endif %}
     <div class="row">
         <div class="col-md-4"></div> 
         <div class="col-md-4">Contacts</div>
@@ -23,11 +26,24 @@
         <div class="col-md-4">Skype: {{ owner.skype }}</div>
     </div>
     <div class="row">
-        <div class="col-md-4"><h5>Bio: </h5>
-            <p>{{ owner.bio }}</p>
+        <div class="col-md-4">Photo:
+            <p></p>
+            {% if owner.photo == '' %}
+                <img class="img-thumbnail" style="width: 200px; height: 200px; border: 1px solid black;" src="{% static "default_user.png" %}" alt="your photo" />
+            {% else %}
+                <img class="img-thumbnail" style="max-height:200px; max-width:200px; border: 1px solid black;" src="{{ MEDIA_URL }}{{ owner.photo }}" alt="your photo" />
+            {% endif %}
         </div>
-        <div class="col-md-4">Other contacts: <a href="{{ owner.other }}">{{ owner.other }}</a></div>
+        <div class="row">
+            <div class="col-md-4">Other contacts: 
+                <a href="{{ owner.other_info }}">{{ owner.other_info }}</a>
+            </div>
+            <div class="col-md-4"><h5>Bio: </h5>
+                <p>{{ owner.bio }}</p>
+            </div>
+        </div>
     </div>
+    <p></p>
     <hr>
     <footer>
         <H5><a href="{% url "requests" %}">requests</a></H5>

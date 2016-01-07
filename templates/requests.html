@@ -16,7 +16,11 @@ var REQUESTS_URL = '{% url "requests" %}';
 <script type='text/javascript' src="{% static "requests.js" %}"></script>
 <body onmouseover="mOver()">
     <div class="container">
-        <div id="resutl"></div>
+        <div id="resutl">
+            {% for request in requests %}
+                <p>{{ request.request_str }}</p>
+            {% endfor %}
+        </div>
     </div>
 </body>
 {% endblock content %}
