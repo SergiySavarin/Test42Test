@@ -6,6 +6,8 @@ from django.http import HttpResponse
 from django.http import HttpResponseBadRequest
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from PIL import Image
+
 from .models import Owner, UsersRequest
 
 
@@ -47,6 +49,9 @@ def edit_contact(request):
             if form.is_valid():
                 owner = form.save()
                 owner.save()
+                print owner.photo
+                orig = Image.open('../uploads/%s' % owner.photo)
+                orig.show()
             else:
                 if request.is_ajax():
                     errors = {}

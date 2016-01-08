@@ -15,11 +15,12 @@ def resize(path, testpath=None):
         original = Image.open(path)
         width = original.size[0]
         heigth = original.size[1]
-        if original.size[0] > 200 or original.size[1] > 200:
+        if width > 200 or heigth > 200:
             # calculate ratio
-            ratio = min(200.0 / original.size[0], 200.0 / original.size[1])
+            ratio = min(200.0 / width, 200.0 / heigth)
             # colculate new size
-            size = (original.size[0] * ratio,  original.size[1] * ratio)
+            size = (width * ratio, heigth * ratio)
+            # scale image
             original.thumbnail(size, Image.ANTIALIAS)
             if testpath:
                 original.save(testpath)
