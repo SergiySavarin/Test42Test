@@ -1,13 +1,25 @@
 $(document).ready(function() {
 
     function block_form() {
-        $("#form_loading").show();
+        // $("#form_loading").show();
+        $('#bar').show();
+        $(function () {
+            $('.percent').percentageLoader({
+                    valElement: 'p',
+                    strokeWidth: 30,
+                    bgColor: '#d9d9d9',
+                    ringColor: '#d53f3f',
+                    textColor: '#2C3E50',
+                    fontSize: '14px',
+                    fontWeight: 'normal'
+            });
+        });
         $('textarea').attr('disabled', 'disabled');
         $('input').attr('disabled', 'disabled');
     }
 
     function unblock_form() {
-        $('#form_loading').hide();
+        // $('#form_loading').hide();
         $('textarea').removeAttr('disabled');
         $('input').removeAttr('disabled');
         $('.errorlist').remove();
@@ -19,7 +31,11 @@ $(document).ready(function() {
         },
         success: function() {
             unblock_form();
-            $("#form_success").show();
+            setTimeout(function() {
+                $('#bar').hide();       
+                $("#form_success").show();
+                $('svg').remove();
+            }, 1000);
             setTimeout(function() {
                 $("#form_success").hide();
             }, 3000);
@@ -39,7 +55,6 @@ $(document).ready(function() {
         }
     });
 
-    $('#data_saved').hide();
     $('#birthday').datetimepicker({
         'format': 'MM/DD/YYYY',
     });

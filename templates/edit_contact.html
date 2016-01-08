@@ -6,6 +6,10 @@
 
 {% block content %}
 <script type="text/javascript" src="{% static "edit.js" %}"></script>
+<script src="{% static "jQuery.circleProgressBar.js" %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.4/raphael-min.js"></script>
+<script>
+</script>
 <div class="container">
     <form action="{% url "edit_contact" %}" method="post" enctype="multipart/form-data" name="myform" class="form-horizontal" id="editContact">
         {% csrf_token %}
@@ -73,13 +77,18 @@
         </div>
         <div class="col-sm-8">
                 <div class="container">
-                <div id="form_loading" style="display: none;"><span id="load_text">loading...</span></div>
+                <div id="form_loading" style="display: none;"><span>loading...</span></div>
                 <div id="form_success" style="display: none;" class="alert alert-warning">
                     <span>Data Saved Successfuly.</span>
                 </div>
                 <div id="form_error" style="display: none; color: red;" class="alert alert-warning">
                     <span>Can not submit data due to errors.</span>
                 </div>            
+                <div style="width:50px;height:50px;margin:5px;display:none;" id="bar">
+                    <div class="percent" style="width:50px;height:50px;">
+                        <p style="display:none;">100%</p>
+                    </div>
+                </div>
                 <input type="submit" name="save_button" value="Save"/>
                 <input type="button" onclick="location.href='{% url "contact" %}';" value="Cancel" />  
                 <p></p>
