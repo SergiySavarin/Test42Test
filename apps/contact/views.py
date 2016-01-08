@@ -6,8 +6,9 @@ from django.http import HttpResponse
 from django.http import HttpResponseBadRequest
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from PIL import Image
+from resizeimg import size, resize
 
+from fortytwo_test_task.settings import MEDIA_ROOT
 from .models import Owner, UsersRequest
 
 
@@ -49,9 +50,11 @@ def edit_contact(request):
             if form.is_valid():
                 owner = form.save()
                 owner.save()
-                print owner.photo
-                orig = Image.open('../uploads/%s' % owner.photo)
-                orig.show()
+                # Take owner photo path
+                photo_path = '%s/%s' % (MEDIA_ROOT, owner.photo)
+                # Check photo size, if not 200x200px, resize it
+                if not size(photo_path):
+                    resize(photo_path)
             else:
                 if request.is_ajax():
                     errors = {}

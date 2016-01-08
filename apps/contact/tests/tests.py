@@ -9,7 +9,7 @@ from PIL import Image
 from apps.contact.models import Owner, UsersRequest
 from apps.contact.views import contact, requests
 from fortytwo_test_task.settings import BASE_DIR
-from apps.contact.resizeimg import resize
+from apps.contact.resizeimg import resize, size
 
 
 class HomePageTest(TestCase):
@@ -97,7 +97,7 @@ class OwnerDataEdit(TestCase):
 
 class OwnerPhotoResize(TestCase):
     """Test for owner photo resizing."""
-    def test_resizing_owner_photo_and_replace_instaed_original_photo(self):
+    def test_resizing_owner_photo_and_save_instaed_original_photo(self):
         """ Test resizing and saving photo instaed original
             photo with same name and ration, max size 200x200px.
         """
@@ -113,9 +113,19 @@ class OwnerPhotoResize(TestCase):
         # calculate new image size
         new_size = (original.size[0] * ratio,  original.size[1] * ratio)
         # resize image and save with testpath
-        if resize(path, testpath):
+        if not size(path):
             resize(path, testpath)
             test_img = Image.open(testpath)
             # compare test image size with our new_size
             self.assertEqual(new_size[0], test_img.size[0])
             self.assertEqual(new_size[1], test_img.size[1])
+
+    def test_main_page_show_owner_photo_in_proper_size(self):
+        """ Test that owner photo is showed on index page
+            in proper size 200x200px.
+        """
+        owner = Owner()
+        owner.photo = '%s/%s' % (
+            BASE_DIR, 'apps/contact/tests/data/test_img.jpg'
+        )
+        pass

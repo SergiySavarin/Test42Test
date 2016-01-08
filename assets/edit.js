@@ -44,11 +44,16 @@ $(document).ready(function() {
             unblock_form();
             $("#form_error").show();
             // render errors ander form fields
+            alert(resp.responseText)
             var errors = JSON.parse(resp.responseText);
             for (error in errors) {
                 var id = '#' + error;
                 $(id).parent('div').append(errors[error]).css('color', 'red');
             }
+            setTimeout(function() {
+                $('#bar').hide();       
+                $('svg').remove();
+            }, 1000);
             setTimeout(function() {
                 $("#form_error").hide();
             }, 3000);
