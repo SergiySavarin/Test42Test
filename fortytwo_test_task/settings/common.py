@@ -44,6 +44,7 @@ INSTALLED_APPS = (
 
     'apps.hello',
     'apps.contact',
+    'registration',
     'south',
 )
 
@@ -130,3 +131,9 @@ TEMPLATE_DIRS = (
 
 # Turn off south during test
 SOUTH_TESTS_MIGRATE = False
+
+# Turn on users registration
+REGISTRATION_OPEN = True
+
+LOGIN_URL = 'users:auth_login'
+LOGOUT_URL = 'users:auth_logout'

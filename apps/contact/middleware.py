@@ -13,7 +13,13 @@ class UserRequestMiddleware(object):
                 - ajax requests;
                 - requests to static files;
         """
-        if not request.is_ajax() and ('/static/' not in request.path):
+        def exclusion(path):
+            """Function which check request path."""
+            if ('/static/' not in path) and ('/uploads/' not in path):
+                return True
+            return False
+
+        if not request.is_ajax() and exclusion(request.path):
             request_str = '[%s] [%s] "%s %s %s"' % (
                 datetime.now().strftime('%d/%b/%Y %H:%M:%S'),
                 request.META['REMOTE_ADDR'],

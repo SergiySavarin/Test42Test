@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from django.http import HttpResponseBadRequest
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 from resizeimg import size, resize
 
 from fortytwo_test_task.settings import MEDIA_ROOT
@@ -37,6 +38,7 @@ def requests(request):
         return render(request, 'requests.html', {'requests': requests})
 
 
+@login_required
 def edit_contact(request):
     """View for editing owner data."""
     form = EditContactForm()

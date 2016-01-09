@@ -4,12 +4,13 @@
 
 {% block title %}Edit Contact Information{% endblock title %}
 
-{% block content %}
+{% block extra_head %}
 <script type="text/javascript" src="{% static "edit.js" %}"></script>
 <script src="{% static "jQuery.circleProgressBar.js" %}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.4/raphael-min.js"></script>
-<script>
-</script>
+{% endblock extra_head %}
+
+{% block content %}
 <div class="container">
     <form action="{% url "edit_contact" %}" method="post" enctype="multipart/form-data" name="myform" class="form-horizontal" id="editContact">
         {% csrf_token %}

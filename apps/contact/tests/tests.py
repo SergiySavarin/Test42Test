@@ -32,6 +32,21 @@ class HomePageTest(TestCase):
         # Check default image showing
         self.assertContains(response, 'default_user.png')
 
+    def test_home_page_show_edit_option_after_login(self):
+        """ Test home page show edit contact option 
+            when user is already logged in."""
+        response = self.client.get(reverse('contact'))
+        self.assertNotContains(response, "Edit Contact")
+        self.client.login(username='admin', password='admin')        
+        response = self.client.get(reverse('contact'))
+        self.assertContains(response, "Edit Contact")
+
+    def test_logout_redirect_to_home_page(self):
+        self.client.login(username='admin', password='admin')        
+        response = self.client.get(reverse('users:auth_logout'))
+        response = self.client.get(reverse('contact'))
+        self.assertContains(response, "Login")
+
 
 class OwnerDataView(TestCase):
     """Test owner data view."""
@@ -89,6 +104,9 @@ class OwnerDataEdit(TestCase):
         # Take dict of owner fields
         owner_fields = Owner.objects.values().first()
         response = self.client.get(reverse('edit_contact'))
+        self.assertEqual(response.status_code, 302)
+        self.client.login(username='admin', password='admin')        
+        response = self.client.get(reverse('edit_contact'))
         # check each field value from db included in response
         for field in owner_fields:
             if field not in ['', 'id']:
@@ -120,12 +138,16 @@ class OwnerPhotoResize(TestCase):
             self.assertEqual(new_size[0], test_img.size[0])
             self.assertEqual(new_size[1], test_img.size[1])
 
-    def test_main_page_show_owner_photo_in_proper_size(self):
-        """ Test that owner photo is showed on index page
-            in proper size 200x200px.
-        """
-        owner = Owner()
-        owner.photo = '%s/%s' % (
-            BASE_DIR, 'apps/contact/tests/data/test_img.jpg'
-        )
-        pass
+
+class LoginPageTest(TestCase):
+    """Test contact home page."""
+    def test_login_page_returns_correct_html(self):
+        """Test login.html content."""
+        response = self.client.get(reverse('users:auth_login'))
+        self.assertContains(response, 'Sign in')
+    def test_login_page_returns_alert_message(self):
+        """ Test login.html return alert message when user is
+            already logged in."""
+        self.client.login(username='admin', password='admin')        
+        response = self.client.get(reverse('users:auth_login'))
+        self.assertContains(response, "Your're already logged in.")

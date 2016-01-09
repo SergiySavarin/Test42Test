@@ -40,10 +40,19 @@
                     <a class="navbar-brand" href="/">Contact Information</a>
                 </div>
                 <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li><a href="/admin">Login</a></li>
-                        <li><a href="{% url "edit_contact" %}">Edit Contact</a></li>
-                    </ul>
+                    {% if user.is_authenticated %}
+                        <ul class="nav navbar-nav">
+                            <li><a href="{% url "edit_contact" %}">Edit Contact</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="{% url "users:auth_logout" %}">Logout</a></li>
+                        </ul>
+                    {% else %}
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="{% url "users:auth_login" %}">Login</a></li>
+                            <li><a href="{% url "users:registration_register" %}">Registration</a></li>
+                        </ul>
+                    {% endif %}
                 </div>
             </div>
         </div>        
