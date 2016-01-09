@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}Login{% endblock title %}
+
+{% block extra_head %}
+{% endblock extra_head %}
+
+{% block content %}
+<div class="container">
+    {% if form.errors %}
+        <div class="alert alert-warning" role="alert">
+            "Please, correct the following errors."{{ form.non_field_errors }}
+        </div>
+    {% endif %}
+    {% if user.is_authenticated %}
+        <script type="text/javascript">
+        setTimeout(function() {
+            window.location.href = "{% url "contact" %}";
+        }, 2000);
+        </script>
+        <div class="alert alert-warning" role="alert">
+            Your're already logged in. You'll be redicted to home page after 2 seconds.
+        </div>
+    {% else %}
+        <form action="{% url "users:auth_login" %}" method="post" class="form-signin">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{% url "contact" %}" />
+            <h2 class="form-signin-heading">Sign in</h2>
+            <label class="sr-only" for="username">Email address</label>
+            <input id="username" class="form-control" type="text" autofocus="" required="" placeholder="UserName" name="username">
+            <label class="sr-only" for="password">Password</label>
+            <input id="password" class="form-control" type="password" required="" placeholder="Password" name="password">
+            <div class="checkbox"></div>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        </form>
+    {% endif %}
+</div>
+{% endblock content %}
