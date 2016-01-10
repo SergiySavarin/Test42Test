@@ -8,17 +8,24 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'UsersRequest'
-        db.create_table(u'contact_usersrequest', (
+        # Adding model 'Owner'
+        db.create_table(u'contact_owner', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('request_str', self.gf('django.db.models.fields.CharField')(max_length=256)),
+            ('first_name', self.gf('django.db.models.fields.CharField')(max_length=256)),
+            ('last_name', self.gf('django.db.models.fields.CharField')(max_length=256)),
+            ('birthday', self.gf('django.db.models.fields.DateField')()),
+            ('email', self.gf('django.db.models.fields.EmailField')(max_length=256)),
+            ('skype', self.gf('django.db.models.fields.CharField')(max_length=256)),
+            ('jabber', self.gf('django.db.models.fields.CharField')(max_length=256)),
+            ('other_info', self.gf('django.db.models.fields.TextField')(blank=True)),
+            ('bio', self.gf('django.db.models.fields.TextField')(blank=True)),
         ))
-        db.send_create_signal(u'contact', ['UsersRequest'])
+        db.send_create_signal(u'contact', ['Owner'])
 
 
     def backwards(self, orm):
-        # Deleting model 'UsersRequest'
-        db.delete_table(u'contact_usersrequest')
+        # Deleting model 'Owner'
+        db.delete_table(u'contact_owner')
 
 
     models = {
@@ -33,11 +40,6 @@ class Migration(SchemaMigration):
             'last_name': ('django.db.models.fields.CharField', [], {'max_length': '256'}),
             'other_info': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             'skype': ('django.db.models.fields.CharField', [], {'max_length': '256'})
-        },
-        u'contact.usersrequest': {
-            'Meta': {'object_name': 'UsersRequest'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'request_str': ('django.db.models.fields.CharField', [], {'max_length': '256'})
         }
     }
 
