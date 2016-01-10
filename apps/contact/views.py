@@ -65,3 +65,6 @@ def edit_contact(request):
                         print form.errors[error]
                     return HttpResponseBadRequest(json.dumps(errors))
             return HttpResponseRedirect(reverse('edit_contact'))
+        else:
+            form = EditContactForm(request.POST)
+            return render(request, 'edit_contact.html', {'form': form})

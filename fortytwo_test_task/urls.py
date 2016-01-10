@@ -21,6 +21,7 @@ urlpatterns = patterns(
         {'document_root': settings.MEDIA_ROOT}),
     url(r'^users/logout/$', auth_views.logout, kwargs={'next_page': 'contact'},
         name='auth_logout'),
+    url(r'^accounts/profile/$', RedirectView.as_view(pattern_name='contact')),
     url(r'^register/complete/$', RedirectView.as_view(pattern_name='contact'),
         name='registration_complete'),
     url(r'^users/', include('registration.backends.simple.urls',

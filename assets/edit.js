@@ -1,8 +1,8 @@
 $(document).ready(function() {
 
     function block_form() {
-        // $("#form_loading").show();
         $('#bar').show();
+        // set loading widget
         $(function () {
             $('.percent').percentageLoader({
                     valElement: 'p',
@@ -19,7 +19,6 @@ $(document).ready(function() {
     }
 
     function unblock_form() {
-        // $('#form_loading').hide();
         $('textarea').removeAttr('disabled');
         $('input').removeAttr('disabled');
         $('.errorlist').remove();
@@ -44,16 +43,16 @@ $(document).ready(function() {
             unblock_form();
             $("#form_error").show();
             // render errors ander form fields
-            alert(resp.responseText)
             var errors = JSON.parse(resp.responseText);
             for (error in errors) {
                 var id = '#' + error;
                 $(id).parent('div').append(errors[error]).css('color', 'red');
             }
+            // loading widget
             setTimeout(function() {
                 $('#bar').hide();       
                 $('svg').remove();
-            }, 1000);
+            }, 300);
             setTimeout(function() {
                 $("#form_error").hide();
             }, 3000);
@@ -61,7 +60,7 @@ $(document).ready(function() {
     });
 
     $('#birthday').datetimepicker({
-        'format': 'MM/DD/YYYY',
+        'format': 'YYYY-MM-DD',
     });
 
     function readURL(input) {

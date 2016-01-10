@@ -53,12 +53,6 @@ class OwnerDataView(TestCase):
     """Test owner data view."""
     def test_storing_owner_data_to_html_page(self):
         """Test storing owner data to html."""
-        owner = Owner()
-
-        owner.first_name = 'Sergiy'
-        owner.last_name = 'Savarin'
-        owner.save()
-
         request = HttpRequest()
         response = contact(request)
 
@@ -71,7 +65,6 @@ class UserRequestsData(TestCase):
     def test_saving_request_to_db_after_load_the_page_and_store_to_page(self):
         """ Test saving request data to db by middleware and storing its
             to requests.html page by the right way."""
-        request = HttpRequest()
         # Make request to home page
         response1 = self.client.get(reverse('contact'))
         self.assertContains(response1, 'requests')
@@ -81,6 +74,7 @@ class UserRequestsData(TestCase):
         requests_db = UsersRequest.objects.order_by('id').reverse()[:2]
         request_1_db, request_2_db = requests_db
         # Add to request META key which make is_ajax() method true
+        request = HttpRequest()
         request.META['HTTP_X_REQUESTED_WITH'] = 'XMLHttpRequest'
         # Take last two requests from requests page
         requests_pg = json.loads(requests(request).content)['request']
@@ -93,13 +87,15 @@ class UserRequestsData(TestCase):
 class OwnerDataEdit(TestCase):
     """Test for owner data editing."""
     def test_edit_page_show_owner_data_in_fields_after_load(self):
-        """Test that edit page after load show owner data in fields."""
+        """Test that edit page after loads show owner data in fields."""
         owner = Owner(
             first_name='Vasja',
             last_name='Pupkin',
+            birthday='1965-12-02',
             bio='Nurilsk',
             email='rdb@yans.com',
             skype='lock_lom',
+            jabber='vasja@nurilsk.com'
         )
         owner.save()
         # Take dict of owner fields
@@ -110,8 +106,29 @@ class OwnerDataEdit(TestCase):
         response = self.client.get(reverse('edit_contact'))
         # check each field value from db included in response
         for field in owner_fields:
-            if field not in ['', 'id']:
+            if field != 'id' and owner_fields[field] != '':
                 self.assertContains(response, owner_fields[field])
+
+    def test_edit_page_show_error_message_after_invalid_data_post(self):
+        """ Test that edit page after empty or invalid
+            data post shows owner data in fields."""
+        self.client.login(username='admin', password='admin')
+        # empty post
+        response = self.client.post(
+            reverse('edit_contact'), {'first_name': ''}
+        )
+        self.assertEqual(
+            response.context['form']['first_name'].errors,
+            [u'This field is required.']
+        )
+        # invalid data post
+        response = self.client.post(
+            reverse('edit_contact'), {'birthday': 'as;dja sdf'}
+        )
+        self.assertEqual(
+            response.context['form']['birthday'].errors,
+            [u'Enter a valid date.']
+        )
 
 
 class OwnerPhotoResize(TestCase):
@@ -141,9 +158,9 @@ class OwnerPhotoResize(TestCase):
 
 
 class LoginPageTest(TestCase):
-    """Test contact home page."""
+    """Test for login page."""
     def test_login_page_returns_correct_html(self):
-        """Test login.html content."""
+        """Test login page return correct html."""
         response = self.client.get(reverse('users:auth_login'))
         self.assertContains(response, 'Sign in')
 
@@ -153,3 +170,33 @@ class LoginPageTest(TestCase):
         self.client.login(username='admin', password='admin')
         response = self.client.get(reverse('users:auth_login'))
         self.assertContains(response, "Your're already logged in.")
+
+
+class LoginFormTest(TestCase):
+    """Test for login form on login page."""
+    def test_login_page_returns_errors_message(self):
+        """ Test login from return alert message,
+            when user not correct credentials."""
+        response = self.client.post(
+            reverse('users:auth_login'),
+            {'username': 'admin22', 'password': '11admin'}
+        )
+        self.assertContains(response, "Please, correct the following errors.")
+
+    def test_login_page_redirect_to_home_page_after_login(self):
+        """Test login page redirections to home page."""
+        # first response redirect us to accounts/profile from login page
+        response1 = self.client.post(
+            reverse('users:auth_login'),
+            {'username': 'admin', 'password': 'admin'}
+        )
+        self.assertRedirects(
+            response1, response1['location'],
+            status_code=302, target_status_code=301
+        )
+        # second response redirect us to home page from accounts profile
+        response2 = self.client.get(response1['location'])
+        self.assertRedirects(
+            response2, reverse('contact'),
+            status_code=301, target_status_code=200
+        )
