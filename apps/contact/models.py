@@ -21,3 +21,4 @@ class Owner(models.Model):
 class UsersRequest(models.Model):
     """Model for storing requests."""
     request_str = models.CharField(max_length=256)
+    status = models.CharField(max_length=256, default='')
