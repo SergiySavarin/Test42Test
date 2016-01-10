@@ -8,3 +8,4 @@ deploy5_test
 deploy6_test
 deploy7
 deploy7_test
+deploy8_test
