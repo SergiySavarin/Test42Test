@@ -20,7 +20,7 @@ class UserRequestsData(TestCase):
         response2 = self.client.get(reverse('contact'))
         self.assertContains(response2, 'requests')
         # Take last request form db
-        requests_db = UsersRequest.objects.order_by('id').reverse()[:2]
+        requests_db = UsersRequest.objects.order_by('-id')[:2]
         request_1_db, request_2_db = requests_db
         # Add to request META key which make is_ajax() method true
         request.META['HTTP_X_REQUESTED_WITH'] = 'XMLHttpRequest'
