@@ -20,7 +20,11 @@ setInterval(function() {
             COUNT = END - START;
             $('title').text(COUNT);
             if (COUNT > 0) {
-                $('#resutl').html(data.request);
+                $('#resutl').html('');
+                for (requs in data.request) {
+                    var text = data.request[requs];
+                    $('#resutl').append('<p>' + text);
+                }
             }
         }
     });
