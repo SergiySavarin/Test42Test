@@ -28,7 +28,7 @@
     <div class="row">
         <div class="col-md-4">Photo:
             <p></p>
-            {% if owner.photo == '' %}
+            {% if owner.photo == '' or owner == None %}
                 <img class="img-thumbnail" style="width: 200px; height: 200px; border: 1px solid black;" src="{% static "default_user.png" %}" alt="your photo" />
             {% else %}
                 <img class="img-thumbnail" style="max-height:200px; max-width:200px; border: 1px solid black;" src="{{ MEDIA_URL }}{{ owner.photo }}" alt="your photo" />

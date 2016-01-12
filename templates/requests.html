@@ -14,7 +14,7 @@ var REQUESTS_URL = '{% url "requests" %}';
 {% block content %}
 <body onmouseover="mOver()">
     <div class="container">
-        <div id="resutl">
+        <div id="result">
             {% for request in requests %}
                 <p>{{ request.request_str }}</p>
             {% endfor %}
