@@ -8,12 +8,12 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'UsersRequest'
-        db.create_table(u'contact_usersrequest', (
+        """db.create_table(u'contact_usersrequest', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('request_str', self.gf('django.db.models.fields.CharField')(max_length=256)),
         ))
-        db.send_create_signal(u'contact', ['UsersRequest'])
+        db.send_create_signal(u'contact', ['UsersRequest'])"""
+        # Adding model 'UsersRequest'
 
 
     def backwards(self, orm):
